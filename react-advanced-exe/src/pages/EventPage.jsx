@@ -1,7 +1,9 @@
-import { React } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { EditEventForm } from "../components/EditEventForm";
 import {
   Flex,
+  HStack,
+  Tag,
   Card,
   Box,
   Text,
@@ -18,6 +20,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
+import { MyContext } from "../context/MyContext";
 // Form, redirect
 
 export const loader = async ({ params }) => {
@@ -33,6 +36,10 @@ export const loader = async ({ params }) => {
 };
 
 export const EventPage = () => {
+  const { users, categories } = useContext(MyContext);
+  const { event, error } = useLoaderData();
+  const [eventCreator, setEventCreator] = useState(null);
+  const toast = useToast();
   const {
     isOpen: isFirstModalOpen,
     onOpen: openFirstModal,
@@ -49,8 +56,42 @@ export const EventPage = () => {
     onClose: closeEditModal,
   } = useDisclosure();
 
-  const { event, error } = useLoaderData();
-  const toast = useToast();
+  // Gets the creator of the event
+  useEffect(() => {
+    const findEventCreator = async () => {
+      const creator = users.find((user) => user.id === event.createdBy);
+      if (creator) {
+        setEventCreator(creator);
+      }
+    };
+
+    findEventCreator();
+  }, [users, event]);
+  if (!eventCreator) {
+    return null;
+  }
+
+  // Return the category names for the event
+  const eventCategoryNames = event.categoryIds.map((categoryId) => {
+    const matchingCategory = categories.find(
+      (category) => category.id === categoryId
+    );
+    return matchingCategory ? matchingCategory.name : "";
+  });
+
+  // startTime and endTime to a readable string
+  const startDateTime = new Date(event.startTime);
+  const endDateTime = new Date(event.endTime);
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  const startTimeString = startDateTime.toLocaleString("en-US", options);
+  const endTimeString = endDateTime.toLocaleString("en-US", options);
 
   const handleDeleteSubmit = async (id) => {
     try {
@@ -97,7 +138,7 @@ export const EventPage = () => {
         h={{ base: "650px", sm: "650px", md: "650px", lg: "650px" }}
         w={{ base: "100%", sm: "100%", md: "100%", lg: "1000px" }}
         backgroundColor="white"
-        borderRadius={{ base: "0px", lg: "lg" }}
+        borderRadius={{ base: "0px", lg: "sm" }}
         borderColor="transparent"
         shadow="lg"
         overflow="hidden"
@@ -129,19 +170,67 @@ export const EventPage = () => {
             md: "clamp(50%, 600px, 600px)",
             lg: "600px",
           }}
-          padding="32px 26px"
+          padding="2rem 1.6rem"
           fontFamily="sans-serif"
-          backgroundColor="white"
+          backgroundColor="whiteAlpha.800"
+          borderRadius="sm"
           transition="width 0.3s ease, right 0.3s ease"
         >
-          <Box>
-            <Text fontSize="1.5rem" fontWeight="bolder" fontFamily="Caslon">
+          <Box fontFamily="Proxima Nova">
+            <Text fontSize="2rem" textTransform="uppercase">
               {event.title}
             </Text>
-            <Text color="gray.500">{event.description}</Text>
+            <Text fontSize="1.2rem" paddingTop="1rem">
+              {event.description}
+            </Text>
+          </Box>
+
+          <Box position="absolute" bottom="2rem">
+            <Text color="gray.600" fontSize="12px">
+              Location:
+            </Text>
+            <Text>{event.location}</Text>
+
+            <Text color="gray.600" fontSize="12px">
+              Start time:
+            </Text>
+            <Text>{startTimeString}</Text>
+            <Text color="gray.600" fontSize="12px">
+              End time:
+            </Text>
+            <Text fontWeight="">{endTimeString}</Text>
           </Box>
         </Box>
+
+        {/* User that created event box */}
+        <Flex
+          className="event-creator"
+          position="absolute"
+          right="1rem"
+          bottom="1rem"
+          backgroundColor="whiteAlpha.800"
+          padding="0.8rem"
+          borderRadius="sm"
+        >
+          <Flex flexDir="column" justifyContent="center" paddingRight="0.8rem">
+            <Text color="gray.600" fontSize="12px">
+              Created by:
+            </Text>
+            <Text fontWeight="bold">{eventCreator.name}</Text>
+          </Flex>
+          <Image
+            src={eventCreator.image}
+            alt={eventCreator.name}
+            w="50px"
+            h="50px"
+            borderRadius="50"
+            border="1px solid black"
+          ></Image>
+        </Flex>
+
+        {/* Action button */}
         <Button
+          borderRadius="sm"
           position="absolute"
           bottom="1rem"
           left="1rem"
@@ -149,18 +238,51 @@ export const EventPage = () => {
         >
           Actions
         </Button>
+
+        {/* Category tags */}
+        {event.categoryIds[0] !== null ? (
+          <Box position="absolute" top="1rem" left="1rem">
+            <HStack spacing={4}>
+              {eventCategoryNames.map((categoryName) => (
+                <Tag
+                  borderRadius="sm"
+                  key={categoryName}
+                  variant="solid"
+                  colorScheme="red"
+                  color="white"
+                  fontWeight="extrabold"
+                  style={{ textTransform: "capitalize" }}
+                >
+                  {categoryName}
+                </Tag>
+              ))}
+            </HStack>
+          </Box>
+        ) : (
+          <Box display="hidden"></Box>
+        )}
       </Card>
 
+      {/* Modals from action button */}
       {/* First Modal */}
-      <Modal isOpen={isFirstModalOpen} onClose={closeFirstModal}>
+      <Modal
+        isOpen={isFirstModalOpen}
+        onClose={closeFirstModal}
+        size={{ base: "full", sm: "md" }}
+      >
         <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
-        <ModalContent top="10rem">
-          <ModalHeader paddingTop="2rem" paddingBottom="5rem">
+        <ModalContent
+          top={{ base: "0", sm: "10rem" }}
+          justifyContent={{ base: "space-around" }}
+        >
+          <ModalHeader paddingBottom="5rem" paddingTop="2rem">
             What would you like to do?
           </ModalHeader>
-          <ModalCloseButton paddingTop="2rem" />
+          <ModalCloseButton />
           <ModalFooter
-            style={{ display: "flex", justifyContent: "space-between" }}
+            gap={16}
+            display={{ base: "flex", sm: "flex" }}
+            flexDir={{ base: "column-reverse", sm: "row" }}
           >
             <Button colorScheme="red" onClick={closeFirstModal}>
               Return
@@ -176,17 +298,23 @@ export const EventPage = () => {
       </Modal>
 
       {/* Confirm Delete Event Modal */}
-      <Modal isOpen={isDeleteModalOpen} onClose={closeDeleteModal}>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={closeDeleteModal}
+        size={{ base: "full", sm: "md" }}
+      >
         <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
-        <ModalContent top="10rem">
+        <ModalContent top={{ base: "0", sm: "10rem" }}>
           <ModalHeader paddingTop="2rem">Delete Event</ModalHeader>
-          <ModalCloseButton paddingTop="2rem" />
+          <ModalCloseButton />
           <ModalBody paddingBottom="2rem">
             Are you sure you want to delete this event?
           </ModalBody>
 
           <ModalFooter
-            style={{ display: "flex", justifyContent: "space-between" }}
+            display={{ base: "flex", sm: "flex" }}
+            flexDir={{ base: "row", sm: "row" }}
+            justifyContent="space-between"
           >
             <Button colorScheme="red" onClick={closeDeleteModal}>
               Nope, Go Back
@@ -203,11 +331,15 @@ export const EventPage = () => {
       </Modal>
 
       {/* Edit Event Modal */}
-      <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
+      <Modal
+        isOpen={isEditModalOpen}
+        onClose={closeEditModal}
+        size={{ base: "full", sm: "md" }}
+      >
         <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
         <ModalContent>
           <ModalHeader paddingTop="2rem">Edit Event</ModalHeader>
-          <ModalCloseButton paddingTop="2rem" />
+          <ModalCloseButton />
           <ModalBody paddingBottom="2rem">
             <EditEventForm
               event={event}

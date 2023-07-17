@@ -27,14 +27,15 @@ export const EventItem = ({ event, categories }) => {
   return (
     <Link to={`/event/${event.id}`}>
       <Card
+        margin="5px"
         h="500px"
         w={{
-          base: "300px",
+          base: "370px",
           sm: "450px",
           md: "500px",
         }}
         backgroundColor="white"
-        borderRadius="lg"
+        borderRadius="sm"
         borderColor="transparent"
         shadow="lg"
         cursor="pointer"
@@ -51,7 +52,7 @@ export const EventItem = ({ event, categories }) => {
             <Image
               w="100%"
               h="100%"
-              borderTopRadius="lg"
+              borderRadius="sm"
               objectFit="cover"
               src={event.image}
               alt={event.title}
@@ -60,21 +61,27 @@ export const EventItem = ({ event, categories }) => {
 
           <Flex
             flexDir="column"
-            padding="32px 26px"
+            padding="1.2rem 1.4rem"
             fontFamily="sans-serif"
             w="100%"
             h="50%"
           >
-            <Box>
-              <Text fontSize="1.5rem" fontWeight="bolder" fontFamily="Caslon">
+            <Box fontFamily="Proxima Nova">
+              <Text fontSize="1.3rem" textTransform="uppercase">
                 {event.title}
               </Text>
-              <Text color="gray.500">{event.description}</Text>
+              <Text fontSize="1rem">{event.description}</Text>
             </Box>
 
-            <Box mt="auto">
-              <Text fontSize="sm">Start Time: {startTimeString}</Text>
-              <Text fontSize="sm">End Time: {endTimeString}</Text>
+            <Box position="absolute" bottom="1.2rem">
+              <Text color="gray.600" fontSize="12px">
+                Start time:
+              </Text>
+              <Text>{startTimeString}</Text>
+              <Text color="gray.600" fontSize="12px">
+                End time:
+              </Text>
+              <Text fontWeight="">{endTimeString}</Text>
             </Box>
           </Flex>
 
@@ -83,10 +90,11 @@ export const EventItem = ({ event, categories }) => {
               <HStack spacing={4}>
                 {eventCategoryNames.map((categoryName) => (
                   <Tag
+                    borderRadius="sm"
                     key={categoryName}
                     variant="solid"
                     colorScheme="red"
-                    color="black"
+                    color="white"
                     fontWeight="extrabold"
                     style={{ textTransform: "capitalize" }}
                   >

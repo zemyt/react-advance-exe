@@ -3,7 +3,7 @@ import { InputRightElement, Input, Select, InputGroup } from "@chakra-ui/react";
 export const EventSearch = ({ handleChange, setSearchValue, searchValue }) => {
   return (
     <>
-      {/* search field */}
+      {/* Input for event search field */}
       <InputGroup
         marginTop="1rem"
         position="relative"
@@ -15,6 +15,7 @@ export const EventSearch = ({ handleChange, setSearchValue, searchValue }) => {
           placeholder="Search for event..."
           backgroundColor="white"
           onChange={handleChange}
+          borderRadius="sm"
           shadow="lg"
         />
         <InputRightElement
@@ -29,6 +30,7 @@ export const EventSearch = ({ handleChange, setSearchValue, searchValue }) => {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             backgroundColor="white"
+            borderRadius="sm"
           >
             <option value="all">All</option>
             <option value="sports">Sports</option>
@@ -36,37 +38,6 @@ export const EventSearch = ({ handleChange, setSearchValue, searchValue }) => {
           </Select>
         </InputRightElement>
       </InputGroup>
-
-      {/* <Box marginLeft="10px" marginRight="10px" justify="center">
-        <Select
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        >
-          <option value="all">All</option>
-          <option value="sports">Sports</option>
-          <option value="games">Games</option>
-        </Select>
-      </Box> */}
     </>
   );
 };
-
-{
-  /* <Box marginLeft="10px" marginRight="10px" justify="center">
-  <Select value={searchValue} onChange={(e) => setSearchValue(e.target.value)}>
-    <option value="all">All</option>
-    <option value="sports">Sports</option>
-    <option value="games">Games</option>
-  </Select>
-</Box>; */
-}
-
-{
-  /* <RadioGroup  value={searchValue}>
-<Wrap marginLeft="10px" marginRight="10px" justify="center">
-  <Radio value="all">All</Radio>
-  <Radio value="sports">Sports</Radio>
-  <Radio value="games">Games</Radio>
-</Wrap>
-</RadioGroup> */
-}
