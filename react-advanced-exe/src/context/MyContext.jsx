@@ -33,6 +33,13 @@ export const MyContextProvider = ({ children }) => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      // behavior: "smooth",
+    });
+  };
+
   // Time stuff
 
   const getCurrentTime = () => {
@@ -51,6 +58,7 @@ export const MyContextProvider = ({ children }) => {
     <MyContext.Provider
       value={{
         getCurrentTime,
+        scrollToTop,
         users,
         categories,
         events,
