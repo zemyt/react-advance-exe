@@ -6,7 +6,7 @@ import { MyContext } from "../context/MyContext";
 import { EventItem } from "../components/EventItem";
 
 export const EventsPage = () => {
-  const { events, categories } = useContext(MyContext);
+  const { events, categories, scrollToTop } = useContext(MyContext);
 
   const [searchField, setSearchField] = useState("");
   const [searchValue, setSearchValue] = useState("all");
@@ -51,17 +51,54 @@ export const EventsPage = () => {
   });
 
   return (
-    <Box className="event-page">
-      <Flex paddingTop="2rem" flexDir="column" align="center">
-        <Text paddingBottom="1.5rem" fontSize="3rem" fontWeight="bold">
-          Events
+    <Box
+      className="event-page"
+      backgroundColor="rgb(238, 242, 247)"
+      minH="100vh"
+      paddingBottom="2rem"
+    >
+      <Flex
+        flexDir="column"
+        className="banner"
+        borderBottom="1px solid black"
+        align="space-between"
+        padding="2rem 5% 0"
+      >
+        <Text
+          fontFamily="Proxima Nova"
+          paddingBottom="1.5rem"
+          fontWeight="bold"
+          maxWidth="20ch"
+          fontSize="clamp(1rem, 2rem, 3rem)"
+        >
+          AUCTOR QUIS RUTRUM TACTICI PLACERAT PORTTITOR LIBERTO VENENATIS
+          FEUGIAT LAOREET LOREM.
         </Text>
-        <Link to="./createEvent">
-          <Button borderRadius="md" w="160px">
-            Create Event
-          </Button>
-        </Link>
 
+        <Flex paddingBottom="2rem" flexDir="column" gap="1rem">
+          <Text maxWidth="30ch" fontFamily="Proxima Nova">
+            Lacus felis sit nullam. Per neque nec posuere non Pretium torquent.
+          </Text>
+          <Link to="./createEvent">
+            <Button
+              borderRadius="sm"
+              w="160px"
+              border="1px solid"
+              borderColor="hsl(219, 29%, 14%)"
+              color="rgb(238, 242, 247)"
+              backgroundColor="hsl(219, 29%, 14%)"
+              onClick={scrollToTop}
+              _hover={{
+                color: "rgba(242, 242, 242, 0.75)",
+                transition: "all 0.4s ease 0s",
+              }}
+            >
+              Create Event
+            </Button>
+          </Link>
+        </Flex>
+      </Flex>
+      <Flex paddingTop="2rem" flexDir="column" align="center">
         <EventSearch
           handleChange={handleChange}
           setSearchValue={setSearchValue}

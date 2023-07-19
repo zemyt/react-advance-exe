@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Text,
   Flex,
   Image,
   IconButton,
@@ -19,36 +20,57 @@ export const Navigation = () => {
 
   return (
     <Box
+      className="navbar"
       width="100vw"
       display="inline-flex"
-      padding={{ base: "1rem", sm: "1rem", md: "1rem 2rem" }}
       alignItems="center"
       justifyContent="space-between"
       maxH="100px"
-      borderBottom="1px solid"
-      borderColor="blackAlpha.200"
+      borderBottom="1px solid black"
+      backgroundColor="hsl(219, 29%, 14%)"
+      padding="1rem 5% 1rem"
     >
-      <Box>
+      <Box className="nav-logo">
         <Link to="/">
           <Image
             width="100px"
-            borderRadius="5px"
-            backgroundColor="blackAlpha.700"
+            borderRadius="sm"
             src="../../images/svg_logo_logo.png"
             alt="logo"
           />
         </Link>
       </Box>
       <Flex
-        color="blackAlpha.900"
+        className="nav-links"
+        color="white"
         fontWeight="bolder"
         dir="column"
         margin="10px"
         gap="1rem"
         display={{ base: "none", sm: "flex" }}
       >
-        <Link to="/">Events</Link>
-        <Link to="/createEvent">Create Event</Link>
+        <Link to="/">
+          <Text
+            paddingRight="1rem"
+            borderRight="1px solid white"
+            _hover={{
+              color: "rgba(242, 242, 242, 0.75)",
+              transition: "all 0.4s ease 0s",
+            }}
+          >
+            Events
+          </Text>
+        </Link>
+        <Link to="/createEvent">
+          <Text
+            _hover={{
+              color: "rgba(242, 242, 242, 0.75)",
+              transition: "all 0.4s ease 0s",
+            }}
+          >
+            Create Event
+          </Text>
+        </Link>
       </Flex>
       <IconButton
         aria-label="Open Menu"

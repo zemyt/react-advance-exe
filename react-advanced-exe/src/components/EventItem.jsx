@@ -1,7 +1,10 @@
 import { Card, Text, Image, Flex, HStack, Tag, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { MyContext } from "../context/MyContext";
 
 export const EventItem = ({ event, categories }) => {
+  const { scrollToTop } = useContext(MyContext);
   // startTime and endTime to a readable string
   const startDateTime = new Date(event.startTime);
   const endDateTime = new Date(event.endTime);
@@ -25,7 +28,7 @@ export const EventItem = ({ event, categories }) => {
   });
 
   return (
-    <Link to={`/event/${event.id}`}>
+    <Link to={`/event/${event.id}`} onClick={scrollToTop}>
       <Card
         margin="5px"
         h="500px"
@@ -93,7 +96,8 @@ export const EventItem = ({ event, categories }) => {
                     borderRadius="sm"
                     key={categoryName}
                     variant="solid"
-                    colorScheme="red"
+                    backgroundColor="hsl(219, 29%, 14%)"
+                    border="1px solid white"
                     color="white"
                     fontWeight="extrabold"
                     style={{ textTransform: "capitalize" }}

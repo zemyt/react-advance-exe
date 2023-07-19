@@ -133,7 +133,12 @@ export const EventPage = () => {
   }
 
   return (
-    <Flex justify="center" marginTop="1.6rem">
+    <Flex
+      justify="center"
+      paddingTop="5rem"
+      backgroundColor="rgb(238, 242, 247)"
+      minH="100vh"
+    >
       <Card
         h={{ base: "650px", sm: "650px", md: "650px", lg: "650px" }}
         w={{ base: "100%", sm: "100%", md: "100%", lg: "1000px" }}
@@ -248,7 +253,8 @@ export const EventPage = () => {
                   borderRadius="sm"
                   key={categoryName}
                   variant="solid"
-                  colorScheme="red"
+                  backgroundColor="hsl(219, 29%, 14%)"
+                  border="1px solid white"
                   color="white"
                   fontWeight="extrabold"
                   style={{ textTransform: "capitalize" }}

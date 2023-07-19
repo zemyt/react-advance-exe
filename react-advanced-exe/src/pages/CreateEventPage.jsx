@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import {
   Flex,
+  Box,
   Input,
   Button,
   FormLabel,
@@ -8,6 +9,7 @@ import {
   Checkbox,
   Stack,
   useToast,
+  Heading,
 } from "@chakra-ui/react";
 import { MyContext } from "../context/MyContext";
 
@@ -85,81 +87,124 @@ export const CreateEventPage = () => {
   };
 
   return (
-    <Flex className="new-event" justify="center">
-      <form onSubmit={handleSubmit} id="new-event-form" name="new-event-form">
-        <FormLabel htmlFor="createdBy">Event creator:</FormLabel>
-        <Select id="createdBy" name="createdBy">
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.name}
-            </option>
-          ))}
-        </Select>
-
-        <FormLabel htmlFor="title">Title:</FormLabel>
-        <Input type="text" id="title" name="title" required />
-
-        <FormLabel htmlFor="description">Description:</FormLabel>
-        <Input type="text" id="description" name="description" required />
-
-        <FormLabel htmlFor="image">Image URL:</FormLabel>
-        <Input
-          type="text"
-          id="image"
-          name="image"
-          required
-          defaultValue="https://i.pinimg.com/736x/3d/2f/af/3d2faf4e3188d34a9fcdc00df59e77b0.jpg"
-        />
-
-        <FormLabel htmlFor="categoryIds">Categories:</FormLabel>
-        <Stack
-          spacing={5}
-          direction="row"
-          name="categoryIds"
-          id="categoryIds"
-          required
-        >
-          {categories.map((cat) => (
-            <Checkbox
-              key={cat.id}
-              value={cat.id}
-              onChange={(e) => handleCategoryChange(e, cat.id)}
-              isChecked={selectedCategories.includes(cat.id)}
-            >
-              {cat.name}
-            </Checkbox>
-          ))}
-        </Stack>
-
-        <FormLabel htmlFor="location">Location:</FormLabel>
-        <Input type="text" id="location" name="location" required />
-
-        <FormLabel htmlFor="startTime">Start Time:</FormLabel>
-        <Input
-          type="datetime-local"
-          id="startTime"
-          name="startTime"
-          required
-          defaultValue={getCurrentTime()}
-        />
-
-        <FormLabel htmlFor="endTime">End Time:</FormLabel>
-        <Input
-          type="datetime-local"
-          id="endTime"
-          name="endTime"
-          required
-          defaultValue={getCurrentTime()}
-        />
-
-        {isLoading === "true" ? (
-          <Button type="submit" isLoading>
+    <Flex
+      minH="100vh"
+      justify="center"
+      backgroundImage="https://i.pinimg.com/736x/3d/2f/af/3d2faf4e3188d34a9fcdc00df59e77b0.jpg"
+    >
+      <Box
+        m={{ base: "2rem", md: "3rem" }}
+        mb={{ baser: "2rem", md: "5rem" }}
+        className="new-event"
+        padding="2rem"
+        w={{ base: "90%", md: "750px" }}
+        h="fit-content"
+        backgroundColor="white"
+        borderRadius="sm"
+      >
+        <form onSubmit={handleSubmit} id="new-event-form" name="new-event-form">
+          <Heading textAlign="center" fontFamily="Proxima Nova">
             Create Event
-          </Button>
-        ) : (
-          <Button type="submit">Create Event</Button>
-        )}
-      </form>
+          </Heading>
+          <FormLabel htmlFor="title" paddingTop="0.25rem">
+            Title:
+          </FormLabel>
+          <Input type="text" id="title" name="title" required />
+
+          <FormLabel htmlFor="description" paddingTop="0.25rem">
+            Description:
+          </FormLabel>
+          <Input type="text" id="description" name="description" required />
+
+          <FormLabel htmlFor="location" paddingTop="0.25rem">
+            Location:
+          </FormLabel>
+          <Input type="text" id="location" name="location" required />
+
+          <FormLabel htmlFor="image" paddingTop="0.25rem">
+            Image URL:
+          </FormLabel>
+          <Input
+            type="text"
+            id="image"
+            name="image"
+            required
+            defaultValue="https://i.pinimg.com/736x/3d/2f/af/3d2faf4e3188d34a9fcdc00df59e77b0.jpg"
+          />
+
+          <FormLabel paddingTop="0.25rem">Categories:</FormLabel>
+          <Stack spacing={5} direction="row">
+            {categories.map((cat) => (
+              <Checkbox
+                id={cat.id}
+                name="categoryIds"
+                key={cat.id}
+                value={cat.id}
+                onChange={(e) => handleCategoryChange(e, cat.id)}
+                isChecked={selectedCategories.includes(cat.id)}
+              >
+                {cat.name}
+              </Checkbox>
+            ))}
+            2
+          </Stack>
+
+          <FormLabel htmlFor="createdBy" paddingTop="0.25rem">
+            Event creator:
+          </FormLabel>
+          <Select id="createdBy" name="createdBy">
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.name}
+              </option>
+            ))}
+          </Select>
+
+          <Flex
+            display={{ base: "block", md: "flex" }}
+            justify={{ base: "flex-start", md: "space-between" }}
+            gap={{ base: "0", md: "2rem" }}
+          >
+            <Box>
+              <FormLabel htmlFor="startTime" paddingTop="0.25rem">
+                Start Time:
+              </FormLabel>
+              <Input
+                type="datetime-local"
+                id="startTime"
+                name="startTime"
+                required
+                defaultValue={getCurrentTime()}
+              />
+            </Box>
+
+            <Box>
+              <FormLabel htmlFor="endTime" paddingTop="0.25rem">
+                End Time:
+              </FormLabel>
+              <Input
+                type="datetime-local"
+                id="endTime"
+                name="endTime"
+                required
+                defaultValue={getCurrentTime()}
+              />
+            </Box>
+          </Flex>
+
+          <Flex justify="center" paddingTop="1rem">
+            {isLoading === "true" ? (
+              <Button type="submit" borderRadius="sm" isLoading>
+                Create Event
+              </Button>
+            ) : (
+              <Button type="submit" borderRadius="sm">
+                Create Event
+              </Button>
+            )}
+          </Flex>
+        </form>
+      </Box>
     </Flex>
   );
 };

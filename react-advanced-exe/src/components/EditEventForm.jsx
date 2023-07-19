@@ -122,16 +122,12 @@ export const EditEventForm = ({ event, closeModal }) => {
         defaultValue={event.image}
       />
 
-      <FormLabel htmlFor="categoryIds">Categories:</FormLabel>
-      <Stack
-        spacing={5}
-        direction="row"
-        name="categoryIds"
-        id="categoryIds"
-        required
-      >
+      <FormLabel>Categories:</FormLabel>
+      <Stack spacing={5} direction="row">
         {categories.map((cat) => (
           <Checkbox
+            id={cat.id}
+            name="categoryIds"
             key={cat.id}
             value={cat.id}
             onChange={(e) => handleCategoryChange(e, cat.id)}
