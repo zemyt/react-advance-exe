@@ -12,6 +12,7 @@ export const Footer = () => {
       backgroundColor="hsl(219, 29%, 14%)"
       padding="3rem 5% 3rem"
       display={{ base: "flex", md: "grid" }}
+      justifyContent="center"
       gridTemplateRows="repeat(1, 1fr)"
       gridTemplateColumns="repeat(2, 1fr)"
     >
@@ -26,6 +27,7 @@ export const Footer = () => {
         <Link to="/">
           <Text
             onClick={scrollToTop}
+            textDecoration="underline"
             _hover={{
               color: "rgba(242, 242, 242, 0.75)",
               transition: "all 0.4s ease 0s",
@@ -37,6 +39,9 @@ export const Footer = () => {
         <Link to="/createEvent">
           <Text
             onClick={scrollToTop}
+            borderLeft={{ base: "1px solid white", md: "none" }}
+            paddingLeft={{ base: "1rem", md: "0" }}
+            textDecoration="underline"
             _hover={{
               color: "rgba(242, 242, 242, 0.75)",
               transition: "all 0.4s ease 0s",
@@ -46,10 +51,13 @@ export const Footer = () => {
           </Text>
         </Link>
       </Flex>
+
       <Flex className="footer-text" gridArea="1/2/2/3">
         <Text
           color="white"
           fontSize="sm"
+          borderLeft="1px solid white"
+          paddingLeft="1rem"
           display={{ base: "none", md: "flex" }}
         >
           Eu in est, morbi. Aenean ridiculus blandit, maecenas phasellus

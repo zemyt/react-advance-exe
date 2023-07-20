@@ -58,8 +58,8 @@ export const EventsPage = () => {
       paddingBottom="2rem"
     >
       <Flex
+        className="event-page-banner"
         flexDir="column"
-        className="banner"
         borderBottom="1px solid black"
         align="space-between"
         padding="2rem 5% 0"
@@ -69,7 +69,7 @@ export const EventsPage = () => {
           paddingBottom="1.5rem"
           fontWeight="bold"
           maxWidth="20ch"
-          fontSize="clamp(1rem, 2rem, 3rem)"
+          fontSize="clamp(1rem, 4vw, 3rem)"
         >
           AUCTOR QUIS RUTRUM TACTICI PLACERAT PORTTITOR LIBERTO VENENATIS
           FEUGIAT LAOREET LOREM.
@@ -79,23 +79,23 @@ export const EventsPage = () => {
           <Text maxWidth="30ch" fontFamily="Proxima Nova">
             Lacus felis sit nullam. Per neque nec posuere non Pretium torquent.
           </Text>
-          <Link to="./createEvent">
-            <Button
-              borderRadius="sm"
-              w="160px"
-              border="1px solid"
-              borderColor="hsl(219, 29%, 14%)"
-              color="rgb(238, 242, 247)"
-              backgroundColor="hsl(219, 29%, 14%)"
-              onClick={scrollToTop}
-              _hover={{
-                color: "rgba(242, 242, 242, 0.75)",
-                transition: "all 0.4s ease 0s",
-              }}
-            >
-              Create Event
-            </Button>
-          </Link>
+          <Button
+            as={Link}
+            to="./createEvent"
+            borderRadius="sm"
+            w="160px"
+            border="1px solid"
+            borderColor="hsl(219, 29%, 14%)"
+            color="rgb(238, 242, 247)"
+            backgroundColor="hsl(219, 29%, 14%)"
+            onClick={scrollToTop}
+            _hover={{
+              color: "rgba(242, 242, 242, 0.75)",
+              transition: "all 0.4s ease 0s",
+            }}
+          >
+            Create Event
+          </Button>
         </Flex>
       </Flex>
       <Flex paddingTop="2rem" flexDir="column" align="center">
@@ -106,17 +106,21 @@ export const EventsPage = () => {
         ></EventSearch>
       </Flex>
 
-      {/* return all events that match search criteria on EventsPage */}
       <Flex
-        paddingTop="2rem"
+        className="events-list-container"
+        padding="2rem 5% 2rem"
         flexWrap="wrap"
         justify="center"
         align="center"
         gap="1rem"
       >
-        {matchedEvents.map((event) => (
-          <EventItem key={event.id} event={event} categories={categories} />
-        ))}
+        {matchedEvents.length === 0 ? (
+          <Text fontSize="1.5rem">No match results.</Text>
+        ) : (
+          matchedEvents.map((event) => (
+            <EventItem key={event.id} event={event} categories={categories} />
+          ))
+        )}
       </Flex>
     </Box>
   );

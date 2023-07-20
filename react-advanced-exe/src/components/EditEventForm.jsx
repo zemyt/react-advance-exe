@@ -104,7 +104,9 @@ export const EditEventForm = ({ event, closeModal }) => {
         defaultValue={event.title}
       />
 
-      <FormLabel htmlFor="description">Description:</FormLabel>
+      <FormLabel htmlFor="description" paddingTop="0.25rem">
+        Description:
+      </FormLabel>
       <Input
         type="text"
         id="description"
@@ -113,7 +115,9 @@ export const EditEventForm = ({ event, closeModal }) => {
         defaultValue={event.description}
       />
 
-      <FormLabel htmlFor="image">Image URL:</FormLabel>
+      <FormLabel htmlFor="image" paddingTop="0.25rem">
+        Image URL:
+      </FormLabel>
       <Input
         type="text"
         id="image"
@@ -122,7 +126,7 @@ export const EditEventForm = ({ event, closeModal }) => {
         defaultValue={event.image}
       />
 
-      <FormLabel>Categories:</FormLabel>
+      <FormLabel paddingTop="0.25rem">Categories:</FormLabel>
       <Stack spacing={5} direction="row">
         {categories.map((cat) => (
           <Checkbox
@@ -138,7 +142,9 @@ export const EditEventForm = ({ event, closeModal }) => {
         ))}
       </Stack>
 
-      <FormLabel htmlFor="location">Location:</FormLabel>
+      <FormLabel htmlFor="location" paddingTop="0.25rem">
+        Location:
+      </FormLabel>
       <Input
         type="text"
         id="location"
@@ -147,7 +153,9 @@ export const EditEventForm = ({ event, closeModal }) => {
         defaultValue={event.location}
       />
 
-      <FormLabel htmlFor="startTime">Start Time:</FormLabel>
+      <FormLabel htmlFor="startTime" paddingTop="0.25rem">
+        Start Time:
+      </FormLabel>
       <Input
         type="datetime-local"
         id="startTime"
@@ -156,7 +164,9 @@ export const EditEventForm = ({ event, closeModal }) => {
         defaultValue={event.startTime}
       />
 
-      <FormLabel htmlFor="endTime">End Time:</FormLabel>
+      <FormLabel htmlFor="endTime" paddingTop="0.25rem">
+        End Time:
+      </FormLabel>
       <Input
         type="datetime-local"
         id="endTime"

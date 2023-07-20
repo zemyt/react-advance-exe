@@ -30,16 +30,15 @@ export const EventItem = ({ event, categories }) => {
   return (
     <Link to={`/event/${event.id}`} onClick={scrollToTop}>
       <Card
-        margin="5px"
         h="500px"
         w={{
-          base: "370px",
-          sm: "450px",
-          md: "500px",
+          base: "clamp(300px, 98vw, 400px)",
+          sm: "400px",
+          md: "400px",
         }}
+        border="1px solid hsl(219, 29%, 14%)"
         backgroundColor="white"
         borderRadius="sm"
-        borderColor="transparent"
         shadow="lg"
         cursor="pointer"
         overflow="hidden"
@@ -55,7 +54,6 @@ export const EventItem = ({ event, categories }) => {
             <Image
               w="100%"
               h="100%"
-              borderRadius="sm"
               objectFit="cover"
               src={event.image}
               alt={event.title}
@@ -63,6 +61,7 @@ export const EventItem = ({ event, categories }) => {
           </Box>
 
           <Flex
+            borderTop="1px solid hsl(219, 29%, 14%)"
             flexDir="column"
             padding="1.2rem 1.4rem"
             fontFamily="sans-serif"
@@ -76,7 +75,12 @@ export const EventItem = ({ event, categories }) => {
               <Text fontSize="1rem">{event.description}</Text>
             </Box>
 
-            <Box position="absolute" bottom="1.2rem">
+            <Box
+              position="absolute"
+              bottom="1.2rem"
+              borderLeft="1px solid hsl(219, 29%, 14%)"
+              paddingLeft="8px"
+            >
               <Text color="gray.600" fontSize="12px">
                 Start time:
               </Text>

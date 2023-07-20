@@ -21,7 +21,6 @@ import {
 } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import { MyContext } from "../context/MyContext";
-// Form, redirect
 
 export const loader = async ({ params }) => {
   try {
@@ -135,7 +134,7 @@ export const EventPage = () => {
   return (
     <Flex
       justify="center"
-      paddingTop="5rem"
+      padding="5rem 0"
       backgroundColor="rgb(238, 242, 247)"
       minH="100vh"
     >
@@ -147,6 +146,7 @@ export const EventPage = () => {
         borderColor="transparent"
         shadow="lg"
         overflow="hidden"
+        justifyContent={{ base: "center" }}
       >
         <Image
           position="absolute"
@@ -159,57 +159,73 @@ export const EventPage = () => {
         />
 
         <Box
+          borderTop="1px solid hsl(219, 29%, 14%)"
+          borderBottom="1px solid hsl(219, 29%, 14%)"
+          borderRight={{ base: "none", sm: "1px solid hsl(219, 29%, 14%)" }}
+          borderLeft={{ base: "none", sm: "1px solid hsl(219, 29%, 14%)" }}
           position="absolute"
-          top="50px"
-          right={{
-            base: "clamp(20px, 35px, 50px)",
-            sm: "clamp(20px, 50px, 50px)",
-            md: "clamp(50px, 50px, 70px)",
-            lg: "50px",
-          }}
+          top="56px"
+          left={{ base: "0", sm: "16px" }}
           zIndex={1}
           h="60%"
           w={{
-            base: "clamp(50%, 80%, 600px)",
-            sm: "clamp(50%, 80%, 600px)",
-            md: "clamp(50%, 600px, 600px)",
+            base: "100vw",
+            sm: "clamp(460px, 90%, 600px)",
+
+            md: "clamp(450px, 600px, 600px)",
             lg: "600px",
           }}
           padding="2rem 1.6rem"
           fontFamily="sans-serif"
           backgroundColor="whiteAlpha.800"
-          borderRadius="sm"
-          transition="width 0.3s ease, right 0.3s ease"
+          borderRadius={{ base: "0", sm: "sm" }}
         >
           <Box fontFamily="Proxima Nova">
-            <Text fontSize="2rem" textTransform="uppercase">
+            <Text
+              fontSize={{ base: "1.5rem", sm: "2rem" }}
+              textTransform="uppercase"
+            >
               {event.title}
             </Text>
-            <Text fontSize="1.2rem" paddingTop="1rem">
+            <Text fontSize={{ base: "0.9rem", sm: "1.2rem" }} paddingTop="1rem">
               {event.description}
             </Text>
           </Box>
 
-          <Box position="absolute" bottom="2rem">
+          <Box
+            position="absolute"
+            bottom={{ base: "1rem", sm: "2rem" }}
+            borderLeft={{ base: "none", sm: "1px solid hsl(219, 29%, 14%)" }}
+            paddingLeft={{ base: "0", sm: "8px" }}
+            paddingRight={{ base: "8px", sm: "1rem" }}
+            paddingTop={{ base: "8px", sm: "0" }}
+          >
             <Text color="gray.600" fontSize="12px">
               Location:
             </Text>
-            <Text>{event.location}</Text>
+            <Text fontSize={{ base: "0.9rem", sm: "1.2rem" }}>
+              {event.location}
+            </Text>
 
             <Text color="gray.600" fontSize="12px">
               Start time:
             </Text>
-            <Text>{startTimeString}</Text>
+            <Text fontSize={{ base: "0.9rem", sm: "1.2rem" }}>
+              {startTimeString}
+            </Text>
             <Text color="gray.600" fontSize="12px">
               End time:
             </Text>
-            <Text fontWeight="">{endTimeString}</Text>
+            <Text fontSize={{ base: "0.9rem", sm: "1.2rem" }}>
+              {endTimeString}
+            </Text>
           </Box>
         </Box>
 
         {/* User that created event box */}
         <Flex
           className="event-creator"
+          border="1px solid hsl(219, 29%, 14%)"
           position="absolute"
           right="1rem"
           bottom="1rem"
@@ -235,6 +251,7 @@ export const EventPage = () => {
 
         {/* Action button */}
         <Button
+          border="1px solid hsl(219, 29%, 14%)"
           borderRadius="sm"
           position="absolute"
           bottom="1rem"
@@ -357,5 +374,3 @@ export const EventPage = () => {
     </Flex>
   );
 };
-
-// The event page shows the following details:  title, description, image, startTime, endTime, categories and by who it’s created (display their name and image).

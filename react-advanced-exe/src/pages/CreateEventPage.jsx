@@ -93,14 +93,15 @@ export const CreateEventPage = () => {
       backgroundImage="https://i.pinimg.com/736x/3d/2f/af/3d2faf4e3188d34a9fcdc00df59e77b0.jpg"
     >
       <Box
+        className="new-event"
         m={{ base: "2rem", md: "3rem" }}
         mb={{ baser: "2rem", md: "5rem" }}
-        className="new-event"
         padding="2rem"
         w={{ base: "90%", md: "750px" }}
         h="fit-content"
         backgroundColor="white"
         borderRadius="sm"
+        border="1px solid hsl(219, 29%, 14%)"
       >
         <form onSubmit={handleSubmit} id="new-event-form" name="new-event-form">
           <Heading textAlign="center" fontFamily="Proxima Nova">
@@ -194,11 +195,20 @@ export const CreateEventPage = () => {
 
           <Flex justify="center" paddingTop="1rem">
             {isLoading === "true" ? (
-              <Button type="submit" borderRadius="sm" isLoading>
+              <Button
+                type="submit"
+                borderRadius="sm"
+                isLoading
+                border="1px solid hsl(219, 29%, 14%)"
+              >
                 Create Event
               </Button>
             ) : (
-              <Button type="submit" borderRadius="sm">
+              <Button
+                type="submit"
+                borderRadius="sm"
+                border="1px solid hsl(219, 29%, 14%)"
+              >
                 Create Event
               </Button>
             )}
